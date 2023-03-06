@@ -1,12 +1,14 @@
 import Image from "next/image";
 import { Inter } from "next/font/google";
 import Link from "next/link";
+import Header from "@/components/Header";
+import Banner from "@/components/Banner";
 
 export default function Home() {
   return (
-    <main>
-      <h1 className="text-red-500">ádsd</h1>
-      <Link href="/showtimes">Go to About Page</Link>
+    <main className="bg-black">
+      <Header />
+      <Banner />
     </main>
   );
 }
