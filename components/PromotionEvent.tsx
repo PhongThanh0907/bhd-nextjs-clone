@@ -40,8 +40,8 @@ export default function PromotionEvent({}: Props) {
   };
 
   return (
-    <div className="relative">
-      <div className="uppercase text-mygreen text-2xl flex gap-2">
+    <div className="relative py-10">
+      <div className="uppercase text-mygreen text-2xl flex gap-2 justify-center">
         <h1
           style={{ textUnderlineOffset: "6px" }}
           onClick={() => {
@@ -68,7 +68,10 @@ export default function PromotionEvent({}: Props) {
           Sự kiện
         </h1>
       </div>
-      <div ref={slider} className="relative overflow-hidden w-[80%] mx-auto">
+      <div
+        ref={slider}
+        className="relative overflow-hidden w-[80%] mx-auto py-10"
+      >
         <div
           className="w-full mx-auto flex "
           style={{

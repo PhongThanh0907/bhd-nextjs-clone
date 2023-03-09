@@ -73,3 +73,20 @@ export const listImageEvent = [
     url: "https://www.bhdstar.vn/wp-content/uploads/2018/03/Suat-Khuya-Web.jpg",
   },
 ];
+
+export const aboutBHDCinema = [
+  { title: "Hệ Thống Rạp", path: "/" },
+  { title: "Tuyển dụng", path: "/" },
+  { title: "Liên hệ", path: "/" },
+];
+
+export const termsConditions = [
+  { title: "Quy định thành viên", path: "/" },
+  { title: "Điều khoản", path: "/" },
+  { title: "Hướng dẫn đặt vé trực tuyến", path: "/" },
+  { title: "Quy định và chính sách chung", path: "/" },
+  {
+    title: "Chính sách bảo vệ thông tin cá nhân của người tiêu dùng",
+    path: "/",
+  },
+];

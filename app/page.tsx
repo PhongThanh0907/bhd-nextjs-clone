@@ -6,6 +6,7 @@ import Banner from "@/components/Banner";
 import ShowMovies from "@/components/ShowMovies";
 import CardMember from "@/components/CardMember";
 import PromotionEvent from "@/components/PromotionEvent";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
@@ -15,6 +16,7 @@ export default function Home() {
       <ShowMovies />
       <CardMember />
       <PromotionEvent />
+      <Footer />
     </main>
   );
 }
