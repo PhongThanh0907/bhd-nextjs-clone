@@ -7,26 +7,19 @@ import ScrollDown from "../public/scroll-down.png";
 
 export default function Banner() {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const autoSlide = false;
+  const autoSlideInterval = 3000;
 
-  const bgImgStyle = {
-    transition: "all 1s",
-    height: "95%",
-    width: "100%",
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-  };
+  const prev = () =>
+    setCurrentIndex((curr) => (curr === 0 ? listImage.length - 1 : curr - 1));
+  const next = () =>
+    setCurrentIndex((curr) => (curr === listImage.length - 1 ? 0 : curr + 1));
 
-  const prevSlide = () => {
-    const isFirstSlide = currentIndex === 0;
-    const newIndex = isFirstSlide ? listImage.length - 1 : currentIndex - 1;
-    setCurrentIndex(newIndex);
-  };
-
-  const nextSlide = () => {
-    const isLastSlide = currentIndex === listImage.length - 1;
-    const newIndex = isLastSlide ? 0 : currentIndex + 1;
-    setCurrentIndex(newIndex);
-  };
+  useEffect(() => {
+    if (!autoSlide) return;
+    const slideInterval = setInterval(next, autoSlideInterval);
+    return () => clearInterval(slideInterval);
+  }, []);
 
   const goToSlide = (slideIndex: number) => {
     setCurrentIndex(slideIndex);
@@ -44,40 +37,47 @@ export default function Banner() {
   }, [currentIndex]);
 
   return (
-    <div className="h-[500px] w-full lg:h-[880px] m-auto relative group">
-      <Image
-        style={bgImgStyle}
-        className="duration-500"
-        src={listImage[currentIndex]}
-        alt="image"
-      />
+    <div className="overflow-hidden relative">
+      <div
+        className="flex transition-transform ease-out duration-500"
+        style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+      >
+        {listImage.map((item) => item.image)}
+      </div>
+      <div className="absolute inset-0 flex items-center justify-between p-4">
+        <button
+          onClick={prev}
+          className="p-1 rounded-full shadow bg-white/80 text-gray-800 hover:bg-white"
+        >
+          <ChevronLeftIcon className="h-10 w-10" />
+        </button>
+        <button
+          onClick={next}
+          className="p-1 rounded-full shadow bg-white/80 text-gray-800 hover:bg-white"
+        >
+          <ChevronRightIcon className="h-10 w-10" />
+        </button>
+      </div>
 
-      {/* Left Arrow */}
-      <div className="hidden group-hover:block absolute top-[46%] -translate-x-0 translate-y-[-50%] left-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer">
-        <ChevronLeftIcon className="h-10 w-10" onClick={prevSlide} />
-      </div>
-      {/* Right Arrow */}
-      <div className="hidden group-hover:block absolute top-[46%] -translate-x-0 translate-y-[-50%] right-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer">
-        <ChevronRightIcon className="h-10 w-10" onClick={nextSlide} />
-      </div>
-      <div className="absolute bottom-40  gap-4 left-0 right-0  flex justify-center">
-        {listImage.map((slide, slideIndex) => (
-          <div
-            key={slideIndex}
-            onClick={() => goToSlide(slideIndex)}
-            className="cursor-pointer"
-          >
+      <div className="absolute bottom-36 right-0 left-0">
+        <div className="flex items-center justify-center gap-3">
+          {listImage.map((_, i) => (
             <div
-              className={`p-1.5 rounded-full  ${
-                slideIndex === currentIndex
-                  ? "px-4 bg-mgreen duration-300"
-                  : "bg-gray-500 duration-300"
-              }`}
+              key={i}
+              onClick={() => goToSlide(i)}
+              className={`
+              transition-all w-3 h-3  rounded-full cursor-pointer
+              ${
+                currentIndex === i
+                  ? "px-4 bg-mgreen"
+                  : "bg-gray-600 bg-opacity-50"
+              }
+            `}
             />
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-      <div className="absolute bottom-3">
+      <div className="absolute bottom-0">
         <Image className="cursor-pointer" src={ScrollDown} alt="scrolldown" />
       </div>
     </div>

@@ -12,8 +12,10 @@ module.exports = {
     extend: {
       colors: {
         mgreen: "#54ab35",
+        mwhite: "#bfbfbf",
+        mygreen: "#d4dd29",
       },
     },
   },
-  plugins: [],
+  plugins: [require("tailwind-scrollbar-hide")],
 };

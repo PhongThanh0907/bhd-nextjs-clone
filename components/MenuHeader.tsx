@@ -6,7 +6,7 @@ type Props = {
 
 export default function MenuHeader({ openMenu }: Props) {
   return (
-    <div className="h-6 relative flex justify-center z-30">
+    <div className="h-[26px] w-11 relative flex justify-center z-30">
       <div
         className={`h-1.5 w-9 bg-gradient-to-r from-[#ADFF2F] to-mgreen absolute rounded-sm  ${
           openMenu

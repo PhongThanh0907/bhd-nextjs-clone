@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 import MainButton from "./MainButton";
 import MenuHeader from "./MenuHeader";
@@ -10,6 +11,7 @@ import Instagram from "../public/icon_in.png";
 import Tiktok from "../public/icon_tiktok.png";
 import Youtube from "../public/icon_YT.png";
 import LineHeader from "../public/line-header1.png";
+import { menuHeader } from "@/app/constants";
 
 type Props = {};
 
@@ -17,13 +19,17 @@ export default function Header({}: Props) {
   const [openMenu, setOpenMenu] = useState<boolean>(false);
   return (
     <div className="grid grid-cols-3 relative  h-[75px] w-full">
-      <div className="flex gap-6">
+      <div className="flex gap-6 z-20">
         <div
           className="cursor-pointer flex-col justify-center py-2 px-4 bg-[#2e2e2e] my-auto"
           onClick={() => setOpenMenu(!openMenu)}
         >
-          <MenuHeader openMenu={openMenu} />
-          <p className="text-sm font-bold text-white mt-0.5">MENU</p>
+          <div className="h-8">
+            <MenuHeader openMenu={openMenu} />
+          </div>
+          <p className="text-sm font-bold text-white ">
+            {openMenu ? "CLOSE" : "MENU"}
+          </p>
         </div>
         <div className="my-auto">
           <MainButton title="Mua vé" className="px-6 py-2" />
@@ -50,6 +56,34 @@ export default function Header({}: Props) {
       <div className="absolute top-[75px] right-0 bottom-0 mx-auto w-full z-30">
         <Image src={LineHeader} alt="lineheader" className="m-auto" />
       </div>
+      {openMenu ? (
+        <div className="absolute top-[75px] z-10 text-mwhite bg-black flex flex-col pl-8 text-xl h-72 w-96 opacity-100 duration-500">
+          {menuHeader.map((item, index) => (
+            <div key={index} className="relative w-full py-5">
+              <Link
+                className="hover:text-mgreen absolute left-[10px] opacity-100"
+                href={item.path}
+                style={{ transition: `all ${item.delay}ms` }}
+              >
+                {item.title}
+              </Link>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div className="absolute top-[75px] z-0 text-mwhite bg-black flex flex-col pt-6 pl-8 text-xl gap-y-3  h-0 w-96 duration-500 opacity-0">
+          {menuHeader.map((item, index) => (
+            <div key={index} className="relative w-full py-3.5">
+              <Link
+                className="hover:text-mgreen absolute left-1/2 opacity-0"
+                href={item.path}
+              >
+                {item.title}
+              </Link>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
